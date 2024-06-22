@@ -14,6 +14,10 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+          <div class="form-group">
+          
+            <input type="text" id="title" formControlName="title" class="form-control" hidden>
+          </div>
             <div class="form-group">
               <label for="title">Title:</label>
               <input type="text" id="title" formControlName="title" class="form-control" required>
@@ -39,11 +43,10 @@
               <input type="text" id="level" formControlName="level" class="form-control" required>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" *ngIf="!idcourant">
               <label for="image">Image:</label>
               <input type="file" id="image" (change)="onFileSelected($event)" formControlName="image" class="form-control-file" required>
             </div>
-            
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
           
