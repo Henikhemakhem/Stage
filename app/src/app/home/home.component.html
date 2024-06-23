@@ -149,11 +149,11 @@
         <div class="container">
           <div class="row mb-5 align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
-              <form action="#" class="d-flex search-form">
-                <span class="icon-"></span>
-                <input type="search" class="form-control mr-2" placeholder="Search subjects">
-                <input type="submit" class="btn btn-primary px-4" value="Search">
-              </form>
+           <form class="d-flex search-form" (ngSubmit)="search()">
+  <input type="search" class="form-control mr-2" placeholder="Search subjects" [(ngModel)]="searchTerm" name="searchTerm">
+  <button type="button" class="btn btn-primary px-4" (click)="search()">Search</button>
+</form>
+
             </div>
             <div class="col-lg-6 text-lg-right">
               <div class="d-inline-flex align-items-center ml-auto">
@@ -170,35 +170,41 @@
                 <span class="caption">Latest</span>
                 <h2>Tutorials</h2>
               
-              <button class="btn btn-success" [routerLink]="'/formation/ajout'">
-                <i class="fas fa-plus-circle"></i> Create New Formation
-              </button>
+                <a class="btn btn-success" routerLink="/formation/ajout">
+                  <i class="fas fa-plus-circle"></i> Create New Formation
+                </a>
             </div>
             </div>
             <br>
             <br><br>
             <div class="col-lg-8">
-              
-              <div class="col-lg-8">
-                <div *ngFor="let formation of formations" class="formation-card">
-                  <img [src]="formation.image" alt="{{ formation.title }}" width="200">
-                  <div class="formation-header">
-                    <h2>{{ formation.title }}</h2>
-                    <p class="category">{{ formation.category }}</p>
-                  </div>
-                  <p class="description">{{ formation.description }}</p>
-                  <div class="formation-details">
-                    <p>Duration: {{ formation.duration }}</p>
-                    <p>Level: {{ formation.level }}</p>
-                    <p>Date: {{ formation.date | date }}</p>
-                  </div>
-                  <button class="btn btn-danger" (click)="deleteFormation(formation._id)">Delete</button>
-                  <a href="/tutorial" class="btn btn-primary">View</a>
-                  <a class="btn btn-outline-dark mt-auto" [routerLink]="'/formation/' + formation._id + '/edit'">
-                    Edit
+              <div *ngFor="let formation of filteredFormations" class="formation-card">
+                <img [src]="formation.image" alt="{{ formation.title }}" width="200">
+                <div class="formation-header">
+                  <h2>{{ formation.title }}</h2>
+                  <p class="category">{{ formation.category }}</p>
+                </div>
+                <p class="description">{{ formation.description }}</p>
+                <div class="formation-details">
+                  <p>Duration: {{ formation.duration }}</p>
+                  <p>Level: {{ formation.level }}</p>
+                  <p>Date: {{ formation.date | date }}</p>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <button class="btn btn-danger" (click)="deleteFormation(formation._id)">
+                    <i class="fas fa-trash-alt"></i> Delete
+                  </button>
+                  <a class="btn btn-primary" [routerLink]="['/tutorial', formation._id]">
+                    <i class="fas fa-eye"></i> View
+                  </a>
+                  <a class="btn btn-outline-dark" [routerLink]="['/formation', formation._id, 'edit']">
+                    <i class="fas fa-edit"></i> Edit
                   </a>
                 </div>
               </div>
+       
+            
+ 
               
 
               <div class="custom-pagination">
